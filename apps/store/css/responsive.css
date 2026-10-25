@@ -1,0 +1,51 @@
+/* Responsive Tweaks and Overrides */
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  .hero-section {
+    padding: 20px 16px;
+  }
+  .service-highlights {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .service-card {
+    flex-direction: row;
+    text-align: left;
+    padding: 12px 14px;
+  }
+  .cart-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cart-item-img {
+    width: 100%;
+    height: 140px;
+  }
+}
+
+/* Safe areas */
+@supports (padding: max(0px)) {
+  .mobile-bottom-nav {
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+    height: calc(var(--bottom-nav-height) + max(10px, env(safe-area-inset-bottom)));
+  }
+  body {
+    padding-bottom: calc(var(--bottom-nav-height) + max(16px, env(safe-area-inset-bottom)));
+  }
+}
+
+/* Utility visibility classes */
+.hide-mobile {
+  display: none !important;
+}
+@media (min-width: 1024px) {
+  .hide-mobile {
+    display: block !important;
+  }
+  .hide-desktop {
+    display: none !important;
+  }
+}

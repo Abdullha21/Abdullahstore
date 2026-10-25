@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hero Banners - Admin</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;">Hero Marketing Banners</div>
+        </header>
+
+        <main class="admin-content" style="max-width: 800px;">
+          <div class="admin-card" style="margin-bottom: 24px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 14px;">Add New Hero Banner</h3>
+            <form id="create-banner-form">
+              <div class="form-group">
+                <label class="form-label">Banner Title</label>
+                <input type="text" id="banner-title" class="form-input" required placeholder="Summer AI Tools Discount" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Subtitle</label>
+                <input type="text" id="banner-subtitle" class="form-input" placeholder="Get 20% off all ChatGPT Plus & Grok accounts" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Target Destination Link</label>
+                <input type="text" id="banner-link" class="form-input" placeholder="/products.html?cat=AI+Tools" />
+              </div>
+              <button type="submit" class="btn btn-primary">Add Banner</button>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 14px;">Active Banners</h3>
+            <div id="admin-banners-list"></div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout, showAdminToast } from "/admin/js/ui.js";
+      import { loadAdminBanners } from "/admin/js/banners.js";
+      import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { db } from "/admin/js/firebase.js";
+
+      renderAdminLayout("banners");
+      checkAdminAuth(() => {
+        loadAdminBanners();
+      });
+
+      document.getElementById("create-banner-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          await addDoc(collection(db, "banners"), {
+            title: document.getElementById("banner-title").value.trim(),
+            subtitle: document.getElementById("banner-subtitle").value.trim(),
+            link: document.getElementById("banner-link").value.trim(),
+            active: true,
+            sortOrder: 1,
+            createdAt: serverTimestamp()
+          });
+          showAdminToast("Banner created successfully!", "success");
+          e.target.reset();
+          loadAdminBanners();
+        } catch (err) {
+          showAdminToast("Failed to create banner", "error");
+        }
+      });
+    </script>
+  </body>
+</html>

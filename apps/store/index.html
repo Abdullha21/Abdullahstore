@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>ABDULLAH STORE - Futuristic Digital Marketplace</title>
+    <meta name="description" content="Mobile-first futuristic digital marketplace for premium accounts, software, VPN, and AI tools with secure customer checkout and administrative dashboard." />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/home.css" />
+    <link rel="stylesheet" href="/css/product.css" />
+    <link rel="stylesheet" href="/css/checkout.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+  </head>
+  <body>
+    <!-- Site Header -->
+    <header class="site-header">
+      <div class="container header-inner">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <button class="icon-btn" id="mobile-menu-toggle" aria-label="Open menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          
+          <a href="/" class="brand-wrapper">
+            <div class="brand-logo-icon">AS</div>
+            <div class="brand-text">
+              <span class="brand-title">ABDULLAH STORE</span>
+              <span class="brand-subtitle">Your Premium Digital Store</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <nav class="desktop-nav">
+          <a href="/" class="active">Home</a>
+          <a href="/products.html">All Products</a>
+          <a href="/categories.html">Categories</a>
+          <a href="/my-orders.html">My Orders</a>
+          <a href="/contact.html">Support</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <!-- Currency selector -->
+          <select class="currency-selector form-select" style="padding: 6px 10px; font-size: 0.82rem; width: auto; background: rgba(7,20,44,0.9); border-radius: var(--radius-sm);">
+            <option value="USD">USD ($)</option>
+            <option value="NGN">NGN (₦)</option>
+            <option value="USDT">USDT (₮)</option>
+            <option value="BTC">BTC (₿)</option>
+            <option value="ETH">ETH (Ξ)</option>
+          </select>
+
+          <!-- Cart Icon -->
+          <a href="/cart.html" class="icon-btn" aria-label="Shopping Cart">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span class="badge-count" id="header-cart-badge" style="display: none;">0</span>
+          </a>
+
+          <!-- Account Icon -->
+          <a href="/login.html" class="icon-btn" id="header-account-link" aria-label="Account">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </a>
+
+          <!-- Switch to Admin quick link -->
+          <a href="/admin/dashboard.html" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; border-color: rgba(99,102,241,0.4);">
+            Admin
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="container" style="flex: 1; padding-top: 14px;">
+      
+      <!-- Top Search Field -->
+      <div class="hero-search-wrapper">
+        <div class="search-input-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="search" id="home-search-input" placeholder="Search premium accounts, VPN, AI tools..." autocomplete="off" />
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Verified Digital Goods
+          </div>
+          <h1 class="hero-title">Premium Accounts At Unbeatable Prices</h1>
+          <p class="hero-subtitle">Get genuine premium accounts, software, VPN, AI tools and more at the best prices with instant automated delivery.</p>
+          <div class="hero-cta-group">
+            <a href="/products.html" class="btn btn-primary btn-lg">
+              Shop Now
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <a href="/categories.html" class="btn btn-secondary btn-lg">
+              Explore Categories
+            </a>
+          </div>
+        </div>
+
+        <!-- Floating Tiles Illustration -->
+        <div class="hero-illustration">
+          <div class="hero-tiles-grid">
+            <div class="hero-tile" data-category="Social Media" title="X Premium">
+              <div class="hero-tile-icon" style="background: rgba(255, 255, 255, 0.1); color: #FFFFFF;">𝕏</div>
+              <span class="hero-tile-name">X Premium</span>
+              <span class="hero-tile-badge">Verified</span>
+            </div>
+            <div class="hero-tile" data-category="AI Tools" title="ChatGPT Plus">
+              <div class="hero-tile-icon" style="background: rgba(16, 185, 129, 0.2); color: #34D399;">🤖</div>
+              <span class="hero-tile-name">ChatGPT+</span>
+              <span class="hero-tile-badge">GPT-4o</span>
+            </div>
+            <div class="hero-tile" data-category="Streaming" title="YouTube Premium">
+              <div class="hero-tile-icon" style="background: rgba(239, 68, 68, 0.2); color: #F87171;">▶</div>
+              <span class="hero-tile-name">YouTube</span>
+              <span class="hero-tile-badge">Ad-Free</span>
+            </div>
+            <div class="hero-tile" data-category="Design Tools" title="Canva Pro">
+              <div class="hero-tile-icon" style="background: rgba(0, 183, 255, 0.2); color: var(--neon-cyan);">🎨</div>
+              <span class="hero-tile-name">Canva Pro</span>
+              <span class="hero-tile-badge">Magic AI</span>
+            </div>
+            <div class="hero-tile" data-category="VPN" title="NordVPN">
+              <div class="hero-tile-icon" style="background: rgba(99, 102, 241, 0.2); color: var(--neon-purple);">🛡</div>
+              <span class="hero-tile-name">NordVPN</span>
+              <span class="hero-tile-badge">10Gbps</span>
+            </div>
+            <div class="hero-tile" data-category="Cloud Storage" title="Cloud Storage">
+              <div class="hero-tile-icon" style="background: rgba(245, 158, 11, 0.2); color: #FBBF24;">☁</div>
+              <span class="hero-tile-name">Cloud 2TB</span>
+              <span class="hero-tile-badge">Lifetime</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Horizontally Scrollable Category Row -->
+      <section class="categories-slider-wrapper">
+        <div class="categories-slider" id="category-slider">
+          <button class="category-chip active" data-category="All">All</button>
+          <button class="category-chip" data-category="Social Media">Social Media</button>
+          <button class="category-chip" data-category="AI Tools">AI Tools</button>
+          <button class="category-chip" data-category="Streaming">Streaming</button>
+          <button class="category-chip" data-category="VPN">VPN</button>
+          <button class="category-chip" data-category="Design Tools">Design Tools</button>
+          <button class="category-chip" data-category="Cloud Storage">Cloud Storage</button>
+          <a href="/categories.html" class="category-chip" style="color: var(--neon-cyan);">More +</a>
+        </div>
+      </section>
+
+      <!-- Promotional Banner Container (Loaded from Firestore) -->
+      <div id="promo-banner-container"></div>
+
+      <!-- Featured Products Grid -->
+      <section style="margin-bottom: 32px;">
+        <div class="section-header">
+          <h2 class="section-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            Featured Accounts
+          </h2>
+          <a href="/products.html" class="section-link">View All &rarr;</a>
+        </div>
+
+        <div class="products-grid" id="featured-products-grid">
+          <!-- Skeletons while loading -->
+          <div class="skeleton" style="height: 260px;"></div>
+          <div class="skeleton" style="height: 260px;"></div>
+          <div class="skeleton" style="height: 260px;"></div>
+          <div class="skeleton" style="height: 260px;"></div>
+        </div>
+      </section>
+
+      <!-- Service Highlights -->
+      <section class="service-highlights">
+        <div class="service-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+          <h5>Instant Delivery</h5>
+          <p>Automated credentials dispatched in minutes</p>
+        </div>
+        <div class="service-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          <h5>Secure Checkout</h5>
+          <p>Crypto & Bank transfer with verified receipts</p>
+        </div>
+        <div class="service-card">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          <h5>24/7 Fast Support</h5>
+          <p>Direct WhatsApp & Telegram assistance</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Floating Contact Buttons -->
+    <div class="floating-contacts">
+      <a href="https://wa.me/message/example" target="_blank" rel="noopener noreferrer" class="contact-float-btn contact-whatsapp" title="WhatsApp Support" aria-label="WhatsApp Support">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+      </a>
+      <a href="https://t.me/example" target="_blank" rel="noopener noreferrer" class="contact-float-btn contact-telegram" title="Telegram Support" aria-label="Telegram Support">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295-.002 0-.003 0-.005 0l.213-3.054 5.56-5.022c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.941z"/></svg>
+      </a>
+    </div>
+
+    <!-- Mobile Slide-out Drawer -->
+    <div class="drawer-backdrop" id="drawer-backdrop">
+      <div class="drawer">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="brand-wrapper">
+            <div class="brand-logo-icon">AS</div>
+            <span class="brand-title">ABDULLAH STORE</span>
+          </div>
+          <button id="drawer-close" style="color: #94A3B8; font-size: 1.5rem;">&times;</button>
+        </div>
+
+        <div id="drawer-auth-area" style="margin-top: 20px;"></div>
+
+        <nav class="drawer-nav">
+          <a href="/" class="drawer-link active">Home</a>
+          <a href="/products.html" class="drawer-link">All Products</a>
+          <a href="/categories.html" class="drawer-link">Categories</a>
+          <a href="/cart.html" class="drawer-link">Cart</a>
+          <a href="/my-orders.html" class="drawer-link">My Orders</a>
+          <a href="/notifications.html" class="drawer-link">Notifications</a>
+          <a href="/contact.html" class="drawer-link">Contact Support</a>
+          <a href="/admin/dashboard.html" class="drawer-link" style="color: var(--neon-cyan);">Admin Dashboard &rarr;</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Fixed Bottom Mobile Navigation Bar -->
+    <nav class="mobile-bottom-nav">
+      <a href="/" class="bottom-nav-item active">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+      <a href="/products.html" class="bottom-nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Products</span>
+      </a>
+      <a href="/cart.html" class="bottom-nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+        <span>Cart</span>
+        <span class="badge-count" id="bottom-cart-badge" style="display: none; top: 2px; right: 18px;">0</span>
+      </a>
+      <a href="/my-orders.html" class="bottom-nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span>Orders</span>
+      </a>
+      <a href="/account.html" class="bottom-nav-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        <span>Account</span>
+      </a>
+    </nav>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="brand-wrapper" style="margin-bottom: 12px;">
+              <div class="brand-logo-icon">AS</div>
+              <span class="brand-title">ABDULLAH STORE</span>
+            </div>
+            <p style="line-height: 1.6; max-width: 320px;">
+              Your reliable source for premium accounts, artificial intelligence subscriptions, streaming services, and VPN accounts. Instant automated delivery.
+            </p>
+          </div>
+          <div>
+            <h4 style="color: #FFFFFF; font-size: 0.95rem; margin-bottom: 12px;">Quick Links</h4>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <a href="/products.html">Browse Catalog</a>
+              <a href="/categories.html">Categories</a>
+              <a href="/my-orders.html">Track Order</a>
+              <a href="/contact.html">Help & FAQ</a>
+            </div>
+          </div>
+          <div>
+            <h4 style="color: #FFFFFF; font-size: 0.95rem; margin-bottom: 12px;">Legal & Security</h4>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <a href="/terms.html">Terms of Service</a>
+              <a href="/privacy.html">Privacy Policy</a>
+              <a href="/admin/login.html" style="color: var(--neon-cyan);">Staff Login</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-credit-locked">
+          &copy; 2026 ABDULLAH STORE. All Rights Reserved. &bull; <strong>Developed by MD ABDULLAH</strong>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { initHomePage } from "/js/home.js";
+      initHomePage();
+    </script>
+  </body>
+</html>

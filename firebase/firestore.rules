@@ -1,0 +1,81 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.role == 'admin' || 
+         request.auth.token.email == 'kff138241@gmail.com' ||
+         request.auth.token.email.matches('admin@.*'));
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Public settings
+    match /settings/{docId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Products catalog
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Banners
+    match /banners/{bannerId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Promo codes (client can read active for UI validation, write only admin)
+    match /promoCodes/{code} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Payment methods
+    match /paymentMethods/{methodId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Users
+    match /users/{userId} {
+      allow read: if isAuthenticated() && (isOwner(userId) || isAdmin());
+      allow create: if isOwner(userId) && request.resource.data.role == 'customer';
+      allow update: if isOwner(userId) && 
+        request.resource.data.role == resource.data.role; // Prevent self-elevation to admin
+      allow write: if isAdmin();
+    }
+
+    // Orders
+    match /orders/{orderId} {
+      // Owner or Admin can read
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.userId == request.auth.uid);
+      // Order writes are strictly handled through backend trusted API to prevent forged prices
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Notifications
+    match /notifications/{notifId} {
+      allow read: if isAdmin() || 
+        (resource.data.target == 'ALL') || 
+        (isAuthenticated() && resource.data.userId == request.auth.uid);
+      allow write: if isAdmin();
+    }
+  }
+}

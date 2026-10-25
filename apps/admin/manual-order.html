@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Manual Order / Invoice - Admin</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;">Generate Manual Invoice & Order</div>
+          <a href="/admin/orders.html" class="btn btn-secondary btn-sm">&larr; Orders</a>
+        </header>
+
+        <main class="admin-content" style="max-width: 800px;">
+          <form id="manual-order-form" class="admin-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 16px;">Customer Information</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Customer Name *</label>
+                <input type="text" id="manual-cust-name" class="form-input" required placeholder="Full Name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Customer Email *</label>
+                <input type="email" id="manual-cust-email" class="form-input" required placeholder="email@domain.com" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">WhatsApp Number *</label>
+                <input type="tel" id="manual-cust-wa" class="form-input" required placeholder="+1234567890" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Currency *</label>
+                <select id="manual-currency" class="form-select">
+                  <option value="USD">USD ($)</option>
+                  <option value="NGN">NGN (₦)</option>
+                  <option value="USDT">USDT (₮)</option>
+                  <option value="BTC">BTC (₿)</option>
+                  <option value="ETH">ETH (Ξ)</option>
+                </select>
+              </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin: 20px 0 12px;">Item & Amount Details</h3>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Product / Service Title *</label>
+                <input type="text" id="manual-item-title" class="form-input" required placeholder="e.g. X Premium 1-Year Subscription" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Quantity</label>
+                <input type="number" id="manual-item-qty" class="form-input" min="1" value="1" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Total Amount *</label>
+                <input type="number" id="manual-item-amount" class="form-input" step="any" min="0" required placeholder="16.00" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;">
+              <div class="form-group">
+                <label class="form-label">Payment Status</label>
+                <select id="manual-pay-status" class="form-select">
+                  <option value="PAID">PAID</option>
+                  <option value="PENDING">PENDING</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Order Fulfillment Status</label>
+                <select id="manual-order-status" class="form-select">
+                  <option value="COMPLETED">COMPLETED</option>
+                  <option value="PROCESSING">PROCESSING</option>
+                  <option value="PENDING">PENDING</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Delivery Note / Credentials Information</label>
+              <textarea id="manual-delivery-info" class="form-textarea" rows="2" placeholder="Account activation link or credentials details..."></textarea>
+            </div>
+
+            <button type="submit" id="create-manual-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 16px;">
+              Create Order & Generate Shareable Invoice &rarr;
+            </button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout, showAdminToast } from "/admin/js/ui.js";
+
+      renderAdminLayout("manual-order");
+      checkAdminAuth();
+
+      document.getElementById("manual-order-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("create-manual-btn");
+        btn.disabled = true;
+        btn.textContent = "Generating Invoice...";
+
+        const payload = {
+          customer: {
+            name: document.getElementById("manual-cust-name").value.trim(),
+            email: document.getElementById("manual-cust-email").value.trim(),
+            whatsapp: document.getElementById("manual-cust-wa").value.trim(),
+            deliveryInfo: document.getElementById("manual-delivery-info").value.trim()
+          },
+          currency: document.getElementById("manual-currency").value,
+          items: [{
+            title: document.getElementById("manual-item-title").value.trim(),
+            quantity: Number(document.getElementById("manual-item-qty").value),
+            lineTotal: Number(document.getElementById("manual-item-amount").value)
+          }],
+          total: Number(document.getElementById("manual-item-amount").value),
+          subtotal: Number(document.getElementById("manual-item-amount").value),
+          discount: 0,
+          paymentStatus: document.getElementById("manual-pay-status").value,
+          orderStatus: document.getElementById("manual-order-status").value
+        };
+
+        try {
+          const res = await fetch("/api/admin/manual-orders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || "Failed to create manual order");
+
+          showAdminToast("Manual order & invoice created!", "success");
+          window.location.href = `/invoice.html?token=${data.shareToken}`;
+        } catch (err) {
+          showAdminToast(err.message || "Failed to create order", "error");
+          btn.disabled = false;
+          btn.textContent = "Create Order & Generate Shareable Invoice";
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,163 @@
+/* Checkout, Cart & Invoice Styles */
+.cart-layout, .checkout-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 24px 0 40px;
+}
+@media (min-width: 1024px) {
+  .cart-layout, .checkout-layout {
+    grid-template-columns: 1.5fr 1fr;
+    gap: 32px;
+  }
+}
+
+.cart-item {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: rgba(7, 20, 44, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  margin-bottom: 12px;
+  align-items: center;
+}
+.cart-item-img {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  background: #030817;
+  flex-shrink: 0;
+}
+.cart-item-details {
+  flex: 1;
+}
+.cart-qty-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(3, 8, 23, 0.6);
+  border: 1px solid #1E293B;
+  border-radius: var(--radius-md);
+  padding: 4px 8px;
+}
+.qty-btn {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94A3B8;
+  border-radius: 4px;
+}
+.qty-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+/* Order Summary Box */
+.summary-card {
+  background: rgba(11, 29, 58, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  height: fit-content;
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+  color: #94A3B8;
+}
+.summary-row.total-row {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+/* Payment Selector Tabs */
+.payment-methods-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.payment-method-card {
+  border: 1px solid #1E293B;
+  background: rgba(7, 20, 44, 0.7);
+  border-radius: var(--radius-md);
+  padding: 14px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.payment-method-card.selected {
+  border-color: var(--neon-cyan);
+  background: rgba(14, 165, 233, 0.12);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.25);
+}
+.payment-instructions-box {
+  background: rgba(3, 8, 23, 0.75);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  border-radius: var(--radius-lg);
+  padding: 18px;
+  margin-top: 16px;
+}
+.qr-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}
+.qr-code-img {
+  width: 160px;
+  height: 160px;
+  background: #FFFFFF;
+  padding: 8px;
+  border-radius: var(--radius-md);
+}
+
+/* Invoice Container */
+.invoice-container {
+  max-width: 800px;
+  margin: 32px auto;
+  background: #07142C;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-xl);
+  padding: 36px 30px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), var(--shadow-glow);
+}
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+.invoice-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+}
+.invoice-table th, .invoice-table td {
+  padding: 12px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.invoice-table th {
+  background: rgba(11, 29, 58, 0.6);
+  color: #94A3B8;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}

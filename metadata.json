@@ -1,0 +1,6 @@
+{
+  "name": "ABDULLAH STORE - Futuristic Digital Marketplace",
+  "description": "Mobile-first futuristic digital marketplace for premium accounts, software, VPN, and AI tools with secure customer checkout and administrative dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

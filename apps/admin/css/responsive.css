@@ -1,0 +1,12 @@
+/* Admin Responsive CSS */
+@media (max-width: 768px) {
+  .admin-topbar {
+    padding: 0 16px;
+  }
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-row {
+    flex-direction: column;
+  }
+}

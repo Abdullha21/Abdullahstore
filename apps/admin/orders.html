@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Orders - Admin Panel</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/admin/css/dashboard.css" />
+    <link rel="stylesheet" href="/admin/css/tables.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;">Customer Orders Management</div>
+          <a href="/admin/manual-order.html" class="btn btn-primary btn-sm">+ Manual Order / Invoice</a>
+        </header>
+
+        <main class="admin-content">
+          <div class="admin-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order #</th>
+                    <th>Customer Details</th>
+                    <th>Purchased Items</th>
+                    <th>Total</th>
+                    <th>Order Status</th>
+                    <th>Payment Status</th>
+                    <th>Invoice</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-orders-tbody">
+                  <tr><td colspan="7" style="text-align: center; padding: 24px;">Loading orders...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout } from "/admin/js/ui.js";
+      import { loadAdminOrders } from "/admin/js/orders.js";
+
+      renderAdminLayout("orders");
+      checkAdminAuth(() => {
+        loadAdminOrders();
+      });
+    </script>
+  </body>
+</html>

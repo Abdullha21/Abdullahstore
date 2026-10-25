@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>My Orders - ABDULLAH STORE</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a href="/" class="brand-wrapper">
+          <div class="brand-logo-icon">AS</div>
+          <span class="brand-title">ABDULLAH STORE</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="container" style="flex: 1; padding-top: 24px; max-width: 760px;">
+      <h1 style="font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">My Orders History</h1>
+      <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 24px;">Track your account activations and view verifiable invoices</p>
+
+      <div id="my-orders-list">
+        <div class="skeleton" style="height: 120px; margin-bottom: 12px;"></div>
+        <div class="skeleton" style="height: 120px;"></div>
+      </div>
+    </main>
+
+    <nav class="mobile-bottom-nav">
+      <a href="/" class="bottom-nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg><span>Home</span></a>
+      <a href="/products.html" class="bottom-nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg><span>Products</span></a>
+      <a href="/cart.html" class="bottom-nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg><span>Cart</span><span class="badge-count" id="bottom-cart-badge" style="display: none; top: 2px; right: 18px;">0</span></a>
+      <a href="/my-orders.html" class="bottom-nav-item active"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg><span>Orders</span></a>
+      <a href="/account.html" class="bottom-nav-item"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>Account</span></a>
+    </nav>
+
+    <footer class="site-footer">
+      <div class="container footer-credit-locked">
+        &copy; 2026 ABDULLAH STORE. &bull; <strong>Developed by MD ABDULLAH</strong>
+      </div>
+    </footer>
+
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { initOrdersPage } from "/js/orders.js";
+      import { subscribeAuth } from "/js/auth.js";
+
+      subscribeAuth(() => {
+        initOrdersPage();
+      });
+    </script>
+  </body>
+</html>

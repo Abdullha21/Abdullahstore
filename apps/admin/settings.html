@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Store Settings - Admin</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;">Store Configurations & General Settings</div>
+        </header>
+
+        <main class="admin-content" style="max-width: 800px;">
+          <form id="settings-form" class="admin-card">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #FFFFFF; margin-bottom: 16px;">General Brand Information</h3>
+
+            <div class="form-group">
+              <label class="form-label">Store Brand Name</label>
+              <input type="text" id="setting-sitename" class="form-input" required />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">WhatsApp Support Number</label>
+                <input type="text" id="setting-whatsapp" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Telegram Support Link</label>
+                <input type="text" id="setting-telegram" class="form-input" />
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Default Store Currency</label>
+                <select id="setting-defaultcurrency" class="form-select">
+                  <option value="USD">USD ($)</option>
+                  <option value="NGN">NGN (₦)</option>
+                  <option value="USDT">USDT (₮)</option>
+                  <option value="BTC">BTC (₿)</option>
+                  <option value="ETH">ETH (Ξ)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Banner Auto-Slide Interval (ms)</label>
+                <input type="number" id="setting-autoslide" class="form-input" min="2000" step="500" value="5000" />
+              </div>
+            </div>
+
+            <div class="form-group" style="background: rgba(3, 8, 23, 0.6); padding: 14px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06);">
+              <label class="form-label" style="display: flex; justify-content: space-between;">
+                <span>Footer Developer Credit (System Locked)</span>
+                <span class="badge badge-featured">LOCKED</span>
+              </label>
+              <input type="text" id="setting-locked-credit" class="form-input" value="Developed by MD ABDULLAH" disabled style="opacity: 0.7; cursor: not-allowed; background: rgba(0,0,0,0.4);" />
+              <p style="font-size: 0.72rem; color: #64748B; margin-top: 4px;">This attribution copyright is permanently locked to "Developed by MD ABDULLAH".</p>
+            </div>
+
+            <button type="submit" id="save-settings-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 16px;">
+              Save Settings &rarr;
+            </button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout } from "/admin/js/ui.js";
+      import { loadAdminSettings, saveAdminSettings } from "/admin/js/settings.js";
+
+      renderAdminLayout("settings");
+      checkAdminAuth(() => {
+        loadAdminSettings();
+      });
+
+      document.getElementById("settings-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const payload = {
+          siteName: document.getElementById("setting-sitename").value.trim(),
+          whatsapp: document.getElementById("setting-whatsapp").value.trim(),
+          telegram: document.getElementById("setting-telegram").value.trim(),
+          defaultCurrency: document.getElementById("setting-defaultcurrency").value,
+          bannerAutoSlide: Number(document.getElementById("setting-autoslide").value) || 5000
+        };
+        await saveAdminSettings(payload);
+      });
+    </script>
+  </body>
+</html>

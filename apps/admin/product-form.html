@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Editor - Admin</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;" id="form-header-title">Create New Digital Product</div>
+          <a href="/admin/products.html" class="btn btn-secondary btn-sm">&larr; Back to Catalog</a>
+        </header>
+
+        <main class="admin-content" style="max-width: 800px;">
+          <form id="product-edit-form" class="admin-card">
+            <div class="form-group">
+              <label class="form-label">Product Title *</label>
+              <input type="text" id="prod-title" class="form-input" required placeholder="e.g. ChatGPT Plus Account" />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label">Category *</label>
+                <select id="prod-category" class="form-select">
+                  <option value="Social Media">Social Media</option>
+                  <option value="AI Tools">AI Tools</option>
+                  <option value="Streaming">Streaming</option>
+                  <option value="VPN">VPN</option>
+                  <option value="Design Tools">Design Tools</option>
+                  <option value="Cloud Storage">Cloud Storage</option>
+                  <option value="Productivity">Productivity</option>
+                  <option value="Utilities">Utilities</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Stock Status</label>
+                <select id="prod-stock" class="form-select">
+                  <option value="AVAILABLE">AVAILABLE (In Stock)</option>
+                  <option value="SOLDOUT">SOLDOUT</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Product Description</label>
+              <textarea id="prod-desc" class="form-textarea" rows="3" placeholder="Full product details, account specifications, and warranty coverage..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Image URL (Cloud Storage or Web)</label>
+              <input type="url" id="prod-image" class="form-input" placeholder="https://images.unsplash.com/..." />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Automated Delivery Instructions (shown on invoice)</label>
+              <input type="text" id="prod-delivery" class="form-input" placeholder="Instant automated credentials dispatch to WhatsApp & Email." />
+            </div>
+
+            <h4 style="font-size: 1rem; color: var(--neon-cyan); margin: 20px 0 10px;">Multi-Currency Pricing</h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px;">
+              <div class="form-group">
+                <label class="form-label">USD ($) *</label>
+                <input type="number" step="any" id="price-usd" class="form-input" required placeholder="10.00" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">NGN (₦)</label>
+                <input type="number" step="any" id="price-ngn" class="form-input" placeholder="15000" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">USDT (₮)</label>
+                <input type="number" step="any" id="price-usdt" class="form-input" placeholder="10.00" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">BTC (₿)</label>
+                <input type="number" step="any" id="price-btc" class="form-input" placeholder="0.00015" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">ETH (Ξ)</label>
+                <input type="number" step="any" id="price-eth" class="form-input" placeholder="0.0035" />
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center; margin: 16px 0;">
+              <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+                <input type="checkbox" id="prod-featured" style="width: 18px; height: 18px;" />
+                <span>Mark as Featured Product</span>
+              </label>
+            </div>
+
+            <button type="submit" id="save-prod-btn" class="btn btn-primary btn-block btn-lg" style="margin-top: 14px;">
+              Save Product &rarr;
+            </button>
+          </form>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout, showAdminToast } from "/admin/js/ui.js";
+      import { doc, getDoc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { db } from "/admin/js/firebase.js";
+
+      renderAdminLayout("products");
+      checkAdminAuth();
+
+      const params = new URLSearchParams(window.location.search);
+      const prodId = params.get("id");
+
+      if (prodId) {
+        document.getElementById("form-header-title").textContent = "Edit Digital Product";
+        getDoc(doc(db, "products", prodId)).then(snap => {
+          if (snap.exists()) {
+            const p = snap.data();
+            document.getElementById("prod-title").value = p.title || "";
+            document.getElementById("prod-category").value = p.category || "Social Media";
+            document.getElementById("prod-stock").value = p.stockStatus || "AVAILABLE";
+            document.getElementById("prod-desc").value = p.description || "";
+            document.getElementById("prod-image").value = (p.images && p.images[0]) || "";
+            document.getElementById("prod-delivery").value = p.deliveryInfo || "";
+            document.getElementById("price-usd").value = p.prices?.USD ?? "";
+            document.getElementById("price-ngn").value = p.prices?.NGN ?? "";
+            document.getElementById("price-usdt").value = p.prices?.USDT ?? "";
+            document.getElementById("price-btc").value = p.prices?.BTC ?? "";
+            document.getElementById("price-eth").value = p.prices?.ETH ?? "";
+            document.getElementById("prod-featured").checked = !!p.isFeatured;
+          }
+        });
+      }
+
+      document.getElementById("product-edit-form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById("save-prod-btn");
+        btn.disabled = true;
+        btn.textContent = "Saving...";
+
+        const id = prodId || "prod_" + Date.now();
+        const title = document.getElementById("prod-title").value.trim();
+        const category = document.getElementById("prod-category").value;
+        const stockStatus = document.getElementById("prod-stock").value;
+        const description = document.getElementById("prod-desc").value.trim();
+        const image = document.getElementById("prod-image").value.trim();
+        const deliveryInfo = document.getElementById("prod-delivery").value.trim();
+
+        const prices = {
+          USD: Number(document.getElementById("price-usd").value) || 0,
+          NGN: Number(document.getElementById("price-ngn").value) || 0,
+          USDT: Number(document.getElementById("price-usdt").value) || 0,
+          BTC: Number(document.getElementById("price-btc").value) || 0,
+          ETH: Number(document.getElementById("price-eth").value) || 0
+        };
+
+        const payload = {
+          title,
+          slug: title.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          category,
+          stockStatus,
+          description,
+          images: image ? [image] : [],
+          deliveryInfo,
+          deliveryDays: 0,
+          prices,
+          isFeatured: document.getElementById("prod-featured").checked,
+          sortOrder: 1,
+          createdAt: serverTimestamp()
+        };
+
+        try {
+          await setDoc(doc(db, "products", id), payload, { merge: true });
+          showAdminToast("Product saved successfully!", "success");
+          setTimeout(() => window.location.href = "/admin/products.html", 800);
+        } catch (err) {
+          showAdminToast("Failed to save product", "error");
+          btn.disabled = false;
+          btn.textContent = "Save Product";
+        }
+      });
+    </script>
+  </body>
+</html>

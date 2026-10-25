@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promo Codes - Admin</title>
+    <link rel="stylesheet" href="/admin/css/variables.css" />
+    <link rel="stylesheet" href="/admin/css/base.css" />
+    <link rel="stylesheet" href="/admin/css/admin-layout.css" />
+    <link rel="stylesheet" href="/admin/css/tables.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+  </head>
+  <body>
+    <div class="admin-app">
+      <aside class="admin-sidebar"></aside>
+
+      <div class="admin-main">
+        <header class="admin-topbar">
+          <div style="font-weight: 700; color: #FFFFFF; font-size: 1.1rem;">Promotional Discounts & Coupons</div>
+        </header>
+
+        <main class="admin-content">
+          <div class="admin-card" style="margin-bottom: 24px;">
+            <h3 style="font-size: 1.05rem; font-weight: 700; color: #FFFFFF; margin-bottom: 14px;">Create New Promo Code</h3>
+            <form id="create-promo-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) auto; gap: 12px; align-items: flex-end;">
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label">Code (e.g. SAVE20)</label>
+                <input type="text" id="promo-new-code" class="form-input" required placeholder="DISCOUNT10" style="text-transform: uppercase;" />
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label">Discount %</label>
+                <input type="number" id="promo-new-pct" class="form-input" required min="1" max="100" placeholder="10" />
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label">Min Order ($)</label>
+                <input type="number" id="promo-new-min" class="form-input" min="0" value="0" />
+              </div>
+              <div class="form-group" style="margin: 0;">
+                <label class="form-label">Max Uses</label>
+                <input type="number" id="promo-new-max" class="form-input" min="1" value="100" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="height: 44px;">Add Code</button>
+            </form>
+          </div>
+
+          <div class="admin-card">
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Discount</th>
+                    <th>Min Order</th>
+                    <th>Uses</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-promo-tbody">
+                  <tr><td colspan="6" style="text-align: center; padding: 24px;">Loading promos...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script type="module">
+      import { checkAdminAuth } from "/admin/js/auth.js";
+      import { renderAdminLayout } from "/admin/js/ui.js";
+      import { loadAdminPromoCodes, createPromoCode } from "/admin/js/promo-codes.js";
+
+      renderAdminLayout("promo-codes");
+      checkAdminAuth(() => {
+        loadAdminPromoCodes();
+      });
+
+      document.getElementById("create-promo-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const code = document.getElementById("promo-new-code").value.trim();
+        const pct = document.getElementById("promo-new-pct").value;
+        const minOrder = document.getElementById("promo-new-min").value;
+        const maxUses = document.getElementById("promo-new-max").value;
+        createPromoCode(code, pct, minOrder, maxUses);
+        e.target.reset();
+      });
+    </script>
+  </body>
+</html>

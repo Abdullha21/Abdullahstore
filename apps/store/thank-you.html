@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Thank You - ABDULLAH STORE</title>
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0F172A" />
+    <link rel="stylesheet" href="/css/variables.css" />
+    <link rel="stylesheet" href="/css/base.css" />
+    <link rel="stylesheet" href="/css/components.css" />
+    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+  </head>
+  <body style="justify-content: center; align-items: center; padding: 24px 16px;">
+    <div class="glass-card" style="width: 100%; max-width: 520px; padding: 36px 28px; text-align: center;">
+      <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(16,185,129,0.15); border: 2px solid var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; color: var(--success);">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+
+      <h1 style="font-size: 1.6rem; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">Order Successfully Placed!</h1>
+      <p style="font-size: 0.9rem; color: #94A3B8; margin-bottom: 24px;">Thank you for your purchase. We have dispatched automated order details to your registered email & WhatsApp.</p>
+
+      <div style="background: rgba(3, 8, 23, 0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px; text-align: left; font-size: 0.88rem;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <span style="color: #94A3B8;">Order Number:</span>
+          <strong id="thankyou-ordernum" style="color: #FFFFFF;">-</strong>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <span style="color: #94A3B8;">Payment Status:</span>
+          <span class="badge badge-featured">PENDING VERIFICATION</span>
+        </div>
+        <div style="display: flex; justify-content: space-between;">
+          <span style="color: #94A3B8;">Order Status:</span>
+          <span class="badge badge-featured">PROCESSING</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px;">
+        <a id="view-invoice-link" href="#" class="btn btn-primary btn-block">
+          View & Download Official Invoice
+        </a>
+        <button id="copy-invoice-link-btn" class="btn btn-secondary btn-block">
+          Copy Secure Invoice Link
+        </button>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; font-size: 0.8rem; color: #64748B;">
+        <a href="/" style="color: var(--neon-cyan);">&larr; Return to Store Homepage</a>
+      </div>
+    </div>
+
+    <script type="module" src="/js/app.js"></script>
+    <script type="module">
+      import { showToast } from "/js/ui.js";
+
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get("orderId");
+      const token = params.get("token");
+
+      document.getElementById("thankyou-ordernum").textContent = orderId || "Confirmed";
+      const invoiceUrl = `/invoice.html?token=${token || ''}`;
+      document.getElementById("view-invoice-link").href = invoiceUrl;
+
+      document.getElementById("copy-invoice-link-btn").addEventListener("click", () => {
+        const fullUrl = window.location.origin + invoiceUrl;
+        navigator.clipboard.writeText(fullUrl).then(() => {
+          showToast("Secure invoice link copied to clipboard!", "success");
+        });
+      });
+    </script>
+  </body>
+</html>
